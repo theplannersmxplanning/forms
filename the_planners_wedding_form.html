@@ -1,0 +1,486 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a1a1a;--ink2:#555;--ink3:#888;--rule:#d8d8d8;--bg:#fff;--bgf:#fafafa;--accent:#1a1a1a}
+.w{max-width:660px;padding:2rem 0;font-family:Georgia,serif}
+.logo-area{text-align:center;padding-bottom:2rem;border-bottom:1px solid var(--rule);margin-bottom:2rem}
+.logo-wordmark{font-family:Georgia,serif;font-size:22px;letter-spacing:.22em;color:var(--ink2);font-weight:400}
+.logo-script{font-family:Georgia,serif;font-size:28px;font-style:italic;color:var(--ink2)}
+.logo-sub{font-size:9px;letter-spacing:.28em;color:var(--ink3);margin-top:6px;font-family:'Helvetica Neue',sans-serif;font-weight:400}
+.prog-wrap{margin-bottom:2rem}
+.prog-bar{height:1px;background:var(--rule);position:relative}
+.prog-fill{height:1px;background:var(--ink);transition:width .4s}
+.step{display:none}.step.active{display:block}
+.step-eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:.2em;color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.step-title{font-size:26px;font-weight:400;color:var(--ink);line-height:1.2;margin-bottom:6px}
+.step-sub{font-size:13px;color:var(--ink3);margin-bottom:2rem;font-family:'Helvetica Neue',Arial,sans-serif}
+.section{border-top:1px solid var(--rule);padding:1.5rem 0}
+.section-label{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:.2em;color:var(--ink3);text-transform:uppercase;margin-bottom:1.2rem}
+.field{margin-bottom:1.4rem}.field:last-child{margin-bottom:0}
+label{display:block;font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.1em;color:var(--ink3);text-transform:uppercase;margin-bottom:6px}
+input,textarea,select{width:100%;font-family:Georgia,serif;font-size:15px;color:var(--ink);background:transparent;border:none;border-bottom:1px solid var(--rule);border-radius:0;padding:8px 0;outline:none;transition:border-color .2s}
+input:focus,textarea:focus,select:focus{border-bottom-color:var(--ink)}
+textarea{resize:vertical;min-height:72px;padding:8px 0}
+select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23888' stroke-width='1'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center;padding-right:20px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem}
+.hidden{display:none!important}
+.nav{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;border-top:1px solid var(--rule);margin-top:1rem}
+.btn{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:12px 28px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;transition:all .2s}
+.btn:hover{background:var(--ink);color:#fff}
+.btn-inv{background:var(--ink);color:#fff}.btn-inv:hover{background:#333}
+.btn-ghost{border-color:var(--rule);color:var(--ink3)}.btn-ghost:hover{background:var(--bgf);color:var(--ink)}
+.btn-sm{padding:8px 18px;font-size:10px}
+.step-counter{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;color:var(--ink3);letter-spacing:.1em}
+.add-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem}
+.add-row2{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:1rem}
+.confirm-box{border:1px solid var(--rule);padding:2rem;text-align:center;margin-bottom:2rem}
+.confirm-box p{font-family:Georgia,serif;font-size:15px;color:var(--ink2);margin-bottom:1.5rem;line-height:1.7}
+.send-row{display:flex;gap:12px}
+.send-row input{flex:1;border-bottom:1px solid var(--rule)}
+.status{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;letter-spacing:.05em;margin-top:12px;color:var(--ink3);min-height:18px}
+.sum-block{margin-bottom:2rem}
+.sum-block-title{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:.2em;color:var(--ink3);text-transform:uppercase;padding-bottom:8px;border-bottom:1px solid var(--rule);margin-bottom:12px}
+.sum-row{display:flex;justify-content:space-between;padding:5px 0;font-family:Georgia,serif;font-size:13px;border-bottom:.5px solid #eee}
+.sum-row:last-child{border-bottom:none}
+.sum-label{color:var(--ink3);font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.06em}
+.sum-value{color:var(--ink);text-align:right;max-width:58%}
+</style>
+
+<div class="w">
+
+<div class="logo-area">
+  <div style="display:flex;align-items:baseline;justify-content:center;gap:8px">
+    <span class="logo-wordmark">O S C A R &nbsp;+</span>
+    <span class="logo-script">Ana</span>
+  </div>
+  <hr style="border:none;border-top:1px solid #ccc;margin:10px auto;width:280px">
+  <div class="logo-sub">The Planners &nbsp;&nbsp; Event Management</div>
+</div>
+
+<div class="prog-wrap">
+  <div class="prog-bar"><div class="prog-fill" id="prog" style="width:12.5%"></div></div>
+  <div style="display:flex;justify-content:flex-end;margin-top:8px">
+    <span class="step-counter" id="stepCount">01 / 08</span>
+  </div>
+</div>
+
+<!-- ===== S1: Datos generales ===== -->
+<div class="step active" id="s1">
+  <div class="step-eyebrow">Paso 01</div>
+  <div class="step-title">Datos generales</div>
+  <div class="step-sub">Información base de su boda</div>
+  <div class="section">
+    <div class="section-label">Los novios</div>
+    <div class="g2">
+      <div class="field"><label>Nombre de la novia</label><input id="bride" placeholder="Nombre completo"></div>
+      <div class="field"><label>Nombre del novio</label><input id="groom" placeholder="Nombre completo"></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">¿Qué eventos tendrán?</div>
+    <div class="field"><label>Seleccionen todos los que apliquen</label>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px" id="eventChecks">
+        <label style="display:flex;align-items:center;gap:8px;text-transform:none;font-size:13px;font-family:Georgia,serif;letter-spacing:0;color:var(--ink);cursor:pointer"><input type="checkbox" value="civil" onchange="onEventChange()" style="width:14px;height:14px;accent-color:var(--ink);border:none;background:transparent;padding:0"> Ceremonia civil</label>
+        <label style="display:flex;align-items:center;gap:8px;text-transform:none;font-size:13px;font-family:Georgia,serif;letter-spacing:0;color:var(--ink);cursor:pointer"><input type="checkbox" value="catolica" onchange="onEventChange()" style="width:14px;height:14px;accent-color:var(--ink);border:none;background:transparent;padding:0"> Ceremonia religiosa católica</label>
+        <label style="display:flex;align-items:center;gap:8px;text-transform:none;font-size:13px;font-family:Georgia,serif;letter-spacing:0;color:var(--ink);cursor:pointer"><input type="checkbox" value="cristiana" onchange="onEventChange()" style="width:14px;height:14px;accent-color:var(--ink);border:none;background:transparent;padding:0"> Ceremonia religiosa cristiana</label>
+        <label style="display:flex;align-items:center;gap:8px;text-transform:none;font-size:13px;font-family:Georgia,serif;letter-spacing:0;color:var(--ink);cursor:pointer"><input type="checkbox" value="recepcion" onchange="onEventChange()" style="width:14px;height:14px;accent-color:var(--ink);border:none;background:transparent;padding:0"> Recepción</label>
+      </div>
+    </div>
+    <div id="eventTimes"></div>
+  </div>
+</div>
+
+<!-- ===== S2: Círculo cercano (preguntas abiertas) ===== -->
+<div class="step" id="s2">
+  <div class="step-eyebrow">Paso 02</div>
+  <div class="step-title">Círculo cercano</div>
+  <div class="step-sub">Cuéntenle al equipo quiénes son las personas más importantes en su día</div>
+  <div class="section">
+    <div class="section-label">Familia de la novia</div>
+    <div class="field"><label>Nombre del padre de la novia</label><input id="bFather" placeholder="Nombre completo, o escribir 'no aplica'"></div>
+    <div class="field"><label>Nombre de la madre de la novia</label><input id="bMother" placeholder="Nombre completo, o escribir 'no aplica'"></div>
+    <div class="field"><label>Hermanos / hermanas de la novia</label><textarea id="bSiblings" placeholder="Escribe los nombres y sus parejas si aplica. Ej: Alberto y Yessica, Ramón"></textarea></div>
+    <div class="field"><label>Hijos de la novia (si aplica)</label><input id="bKids" placeholder="Nombres separados por coma"></div>
+    <div class="field"><label>Otras personas importantes para la novia</label><textarea id="bOthers" placeholder="Abuelos, padrinos, amigos cercanos, etc."></textarea></div>
+  </div>
+  <div class="section">
+    <div class="section-label">Familia del novio</div>
+    <div class="field"><label>Nombre del padre del novio</label><input id="gFather" placeholder="Nombre completo, o escribir 'no aplica'"></div>
+    <div class="field"><label>Nombre de la madre del novio</label><input id="gMother" placeholder="Nombre completo, o escribir 'no aplica'"></div>
+    <div class="field"><label>Hermanos / hermanas del novio</label><textarea id="gSiblings" placeholder="Escribe los nombres y sus parejas si aplica."></textarea></div>
+    <div class="field"><label>Hijos del novio (si aplica)</label><input id="gKids" placeholder="Nombres separados por coma"></div>
+    <div class="field"><label>Otras personas importantes para el novio</label><textarea id="gOthers" placeholder="Abuelos, padrinos, amigos cercanos, etc."></textarea></div>
+  </div>
+</div>
+
+<!-- ===== S3: Fotografías ===== -->
+<div class="step" id="s3">
+  <div class="step-eyebrow">Paso 03</div>
+  <div class="step-title">Fotografías</div>
+  <div class="step-sub">Seleccionen los momentos que desean capturar y agreguen peticiones especiales</div>
+  <div id="photoSections"></div>
+</div>
+
+<!-- ===== S4: Música ===== -->
+<div class="step" id="s4">
+  <div class="step-eyebrow">Paso 04</div>
+  <div class="step-title">Música</div>
+  <div class="step-sub">Las canciones que acompañarán cada momento de su día</div>
+  <div class="section">
+    <div class="section-label">Entrada y primer baile</div>
+    <div class="g2">
+      <div class="field"><label>Canción de entrada — artista</label><input id="entrArt" placeholder="Artista"></div>
+      <div class="field"><label>Canción de entrada — título</label><input id="entrSong" placeholder="Nombre de la canción"></div>
+    </div>
+    <div class="g2">
+      <div class="field"><label>Primer baile — artista</label><input id="firstArt" placeholder="Artista"></div>
+      <div class="field"><label>Primer baile — título</label><input id="firstSong" placeholder="Nombre de la canción"></div>
+    </div>
+    <div class="field"><label>¿Cuándo será el primer baile?</label>
+      <select id="firstWhen"><option value="">Seleccionar...</option><option>Justo después de la entrada</option><option>Después de la cena</option><option>En cualquier momento</option></select>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">Baile con padres</div>
+    <div id="parentDanceFields"></div>
+  </div>
+  <div class="section">
+    <div class="section-label">Momentos especiales</div>
+    <div class="g2">
+      <div class="field"><label>Corte de pastel — artista</label><input id="cakeArt" placeholder="Artista"></div>
+      <div class="field"><label>Corte de pastel — canción</label><input id="cakeSong" placeholder="Canción"></div>
+    </div>
+    <div class="g2">
+      <div class="field"><label>Apertura de pista — artista</label><input id="danceArt" placeholder="Artista"></div>
+      <div class="field"><label>Apertura de pista — canción</label><input id="danceSong" placeholder="Canción"></div>
+    </div>
+    <div class="g2">
+      <div class="field"><label>Última canción — artista</label><input id="lastArt" placeholder="Artista"></div>
+      <div class="field"><label>Última canción — título</label><input id="lastSong" placeholder="Canción"></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">Preferencias generales</div>
+    <div class="field"><label>Géneros y artistas que les gustan</label><textarea id="musicLike" placeholder="Ej. Pop en español, reggaetón, baladas, Maluma, Bad Bunny..."></textarea></div>
+    <div class="field"><label>Canciones o géneros que no quieren</label><textarea id="musicNope" placeholder="Ej. Cumbia, rock pesado..."></textarea></div>
+    <div class="field"><label>¿Permiten solicitudes del público?</label>
+      <select id="requests"><option value="">Seleccionar...</option><option>Sí</option><option>No</option><option>Solo algunas</option></select>
+    </div>
+    <div class="field"><label>Link de Spotify / Apple Music (opcional)</label><input id="playlist" placeholder="https://..."></div>
+  </div>
+</div>
+
+<!-- ===== S5: Recepción ===== -->
+<div class="step" id="s5">
+  <div class="step-eyebrow">Paso 05</div>
+  <div class="step-title">Recepción</div>
+  <div class="step-sub">Cena, discursos y dinámica del evento</div>
+  <div class="section">
+    <div class="section-label">Presentación de los novios</div>
+    <div class="field"><label>¿Cómo desean que los anuncien?</label><textarea id="announce" placeholder="Ej. Por primera vez como esposos, ¡Ana Martínez y Óscar Salcedo!"></textarea></div>
+  </div>
+  <div class="section">
+    <div class="section-label">Cena</div>
+    <div class="g2">
+      <div class="field"><label>Tipo de servicio</label>
+        <select id="dinnerType"><option value="">Seleccionar...</option><option>Buffet</option><option>Plato servido</option><option>Estaciones</option><option>Mixto</option></select>
+      </div>
+      <div class="field"><label>Música durante la cena</label><input id="dinnerMusic" placeholder="Tipo de música, artistas..."></div>
+    </div>
+    <div id="prayerBlock" class="hidden">
+      <div class="g2" style="margin-top:1rem">
+        <div class="field"><label>¿Habrá oración antes de cenar?</label>
+          <select id="prayer"><option value="">Seleccionar...</option><option>Sí</option><option>No</option></select>
+        </div>
+        <div class="field"><label>¿Quién realizará la oración?</label><input id="prayerWho" placeholder="Nombre y relación"></div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">Discursos / brindis</div>
+    <div id="speeches"></div>
+    <button class="btn btn-ghost btn-sm" onclick="addSpeech()" style="margin-top:8px">+ Agregar discurso</button>
+  </div>
+  <div class="section">
+    <div class="section-label">Observaciones para el DJ / animador</div>
+    <div class="field"><textarea id="djNotes" placeholder="Momentos especiales, señales, indicaciones importantes..."></textarea></div>
+  </div>
+</div>
+
+<!-- ===== S6: Ceremonia ===== -->
+<div class="step" id="s6">
+  <div class="step-eyebrow">Paso 06</div>
+  <div class="step-title">Ceremonia</div>
+  <div class="step-sub">Padrinos y testigos según su tipo de ceremonia</div>
+  <div id="ceremonyBlock"></div>
+</div>
+
+<!-- ===== S7: Momentos especiales ===== -->
+<div class="step" id="s7">
+  <div class="step-eyebrow">Paso 07</div>
+  <div class="step-title">Momentos especiales</div>
+  <div class="step-sub">Los detalles que hacen único su día</div>
+  <div class="section">
+    <div class="section-label">Dinámicas</div>
+    <div class="g2">
+      <div class="field"><label>¿Habrá lanzamiento de bouquet?</label>
+        <select id="bouquet"><option value="">Seleccionar...</option><option>Sí</option><option>No</option></select>
+      </div>
+      <div class="field"><label>¿Habrá lanzamiento de liga?</label>
+        <select id="garter"><option value="">Seleccionar...</option><option>Sí</option><option>No</option></select>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">Sorpresas o momentos especiales</div>
+    <div class="field"><textarea id="surprises" placeholder="Videos sorpresa, performance, entradas especiales, juegos con invitados..."></textarea></div>
+  </div>
+  <div class="section">
+    <div class="section-label">Notas para el equipo</div>
+    <div class="field"><label>Para el fotógrafo / videógrafo</label><textarea id="photoNotes" placeholder="Momentos clave, personas especiales, locaciones, timing..."></textarea></div>
+    <div class="field"><label>Para la coordinadora</label><textarea id="plannerNotes" placeholder="Cualquier detalle adicional que quieran que tengamos en cuenta..."></textarea></div>
+  </div>
+</div>
+
+<!-- ===== S8: Envío ===== -->
+<div class="step" id="s8">
+  <div class="step-eyebrow">Paso 08</div>
+  <div class="step-title">Enviar a The Planners</div>
+  <div class="step-sub">Su información está lista. Revísenla y envíenla a nuestro equipo.</div>
+
+  <div class="confirm-box">
+    <p>Al presionar el botón, su formato completo llegará directamente a nuestro equipo.<br>Nos pondremos en contacto con ustedes pronto.</p>
+    <div class="field" style="max-width:360px;margin:0 auto 1.5rem">
+      <label>Su correo electrónico (para confirmación)</label>
+      <input type="email" id="clientEmail" placeholder="correo@ejemplo.com">
+    </div>
+    <button class="btn btn-inv" onclick="sendToPlanner()">Enviar a The Planners</button>
+    <div class="status" id="sendStatus"></div>
+  </div>
+
+  <div id="summaryContent"></div>
+</div>
+
+<div class="nav">
+  <button class="btn btn-ghost" id="prevBtn" onclick="navigate(-1)" style="visibility:hidden">← Anterior</button>
+  <button class="btn btn-inv" id="nextBtn" onclick="navigate(1)">Siguiente</button>
+</div>
+
+</div>
+
+<script>
+const TOTAL=8; let cur=1; let scCnt=0; let padCnt=0;
+
+function getEvents(){return Array.from(document.querySelectorAll('#eventChecks input:checked')).map(c=>c.value);}
+function gv(id){const e=document.getElementById(id);return e&&e.value.trim()?e.value.trim():'';}
+
+function onEventChange(){
+  const sel=getEvents();
+  const labels={civil:'Ceremonia civil',catolica:'Ceremonia religiosa católica',cristiana:'Ceremonia religiosa cristiana',recepcion:'Recepción'};
+  const order=['civil','catolica','cristiana','recepcion'];
+  let html='';
+  order.forEach(v=>{
+    if(!sel.includes(v))return;
+    html+=`<div style="margin-top:1.5rem"><div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.1em;color:#888;text-transform:uppercase;margin-bottom:.8rem">${labels[v]}</div>`;
+    html+=`<div class="g2"><div class="field"><label>Lugar</label><input id="loc_${v}" placeholder="Nombre y dirección"></div>`;
+    html+=`<div class="field"><label>Hora de inicio</label><input id="start_${v}" type="time"></div></div>`;
+    if(v==='recepcion') html+=`<div class="field" style="margin-top:1rem"><label>Hora de fin</label><input id="end_${v}" type="time" style="width:50%"></div>`;
+    html+='</div>';
+  });
+  document.getElementById('eventTimes').innerHTML=html;
+}
+
+const photoBase={
+  bride:{label:"Getting Ready — Novia",items:["Con mamá ayudándole","Con cuñada haciéndole retoques","Retrato individual","First look con papá","Salida hacia la ceremonia"]},
+  groom:{label:"Getting Ready — Novio",items:["Con sus papás","Con su hermano","Retrato individual","Salida hacia la ceremonia"]},
+  ceremony:{label:"Ceremonia",items:["Encuentro en la ceremonia","Con padrinos","Oración con padres","Votos","Beso de esposos","Salida de la ceremonia","Foto grupal","Brindis","Emociones de invitados"]},
+  couple:{label:"Sesión de esposos",items:["Tomados de la mano","Bailando","Beso","Detalle de anillos","Cargándola","Golden hour","Blanco y negro artístico"]},
+  family:{label:"Fotos con familias",items:["Familia completa de la novia","Familia completa del novio","Ambas familias juntas","Con papás de la novia","Con papás del novio"]},
+  reception:{label:"Recepción",items:["Entrada a la recepción","Primer baile","Baile novia-papá","Baile novio-mamá","Corte del pastel","Brindis","Fiesta en pista","Detalles de decoración"]}
+};
+
+function buildPhotoSections(){
+  let html='';
+  Object.entries(photoBase).forEach(([key,sec])=>{
+    html+=`<div class="section"><div class="section-label">${sec.label}</div>`;
+    html+=`<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.2rem" id="pt_${key}">`;
+    sec.items.forEach(item=>{
+      html+=`<label style="display:flex;align-items:center;gap:6px;font-family:Georgia,serif;font-size:13px;letter-spacing:0;text-transform:none;color:var(--ink);cursor:pointer"><input type="checkbox" checked value="${item}" style="width:13px;height:13px;accent-color:var(--ink);border:none;background:transparent;padding:0"> ${item}</label>`;
+    });
+    html+=`</div>`;
+    html+=`<div class="field"><label>Petición especial</label><textarea id="ptExtra_${key}" placeholder="Algún momento adicional que deseen capturar..." style="min-height:52px"></textarea></div>`;
+    html+='</div>';
+  });
+  document.getElementById('photoSections').innerHTML=html;
+}
+
+function buildParentDances(){
+  const bFather=gv('bFather');
+  const gMother=gv('gMother');
+  const bFatherAbsent = bFather.toLowerCase().includes('no aplica')||bFather.toLowerCase().includes('falleci')||bFather===''||bFather.toLowerCase().includes('no tiene');
+  let html='';
+  if(!bFatherAbsent&&bFather){
+    html+=`<div class="g3 field"><div><label>Novia y papá — artista</label><input id="bdadArt" placeholder="Artista"></div><div><label>Novia y papá — canción</label><input id="bdadSong" placeholder="Canción"></div><div><label>Nombre del papá</label><input id="bdadName" value="${bFather}" placeholder="${bFather}"></div></div>`;
+  } else {
+    html+=`<div class="field"><label>¿La novia bailará con algún familiar?</label><select id="brideAltDance" onchange="toggleBrideAlt()"><option value="">Seleccionar...</option><option value="si">Sí, bailará con otro familiar</option><option value="no">No habrá baile con familiar</option></select></div>`;
+    html+=`<div id="brideAltFields" class="hidden"><div class="g3 field"><div><label>¿Con quién bailará?</label><input id="brideAltWho" placeholder="Nombre y relación"></div><div><label>Artista</label><input id="brideAltArt" placeholder="Artista"></div><div><label>Canción</label><input id="brideAltSong" placeholder="Canción"></div></div></div>`;
+  }
+  if(gMother&&!gMother.toLowerCase().includes('no aplica')){
+    html+=`<div class="g3 field" style="margin-top:1.2rem"><div><label>Novio y mamá — artista</label><input id="gmomArt" placeholder="Artista"></div><div><label>Novio y mamá — canción</label><input id="gmomSong" placeholder="Canción"></div><div><label>Nombre de la mamá</label><input id="gmomName" value="${gMother}" placeholder="${gMother}"></div></div>`;
+  }
+  if(!html) html=`<p style="font-size:13px;color:#888;font-family:Georgia,serif">Completen los nombres de los padres en el paso 2 para configurar los bailes.</p>`;
+  document.getElementById('parentDanceFields').innerHTML=html;
+}
+
+function toggleBrideAlt(){
+  const v=document.getElementById('brideAltDance');
+  const f=document.getElementById('brideAltFields');
+  if(v&&f) f.classList.toggle('hidden',v.value!=='si');
+}
+
+function updatePrayerBlock(){
+  const show=getEvents().includes('cristiana');
+  document.getElementById('prayerBlock').classList.toggle('hidden',!show);
+}
+
+function buildCeremonyBlock(){
+  const ev=getEvents();
+  let html='';
+  if(ev.includes('civil')){
+    html+=`<div class="section"><div class="section-label">Testigos — ceremonia civil</div><div class="g2"><div class="field"><label>Testigo 1 de la novia</label><input id="tBride1" placeholder="Nombre completo"></div><div class="field"><label>Testigo 2 de la novia</label><input id="tBride2" placeholder="Nombre completo"></div></div><div class="g2"><div class="field"><label>Testigo 1 del novio</label><input id="tGroom1" placeholder="Nombre completo"></div><div class="field"><label>Testigo 2 del novio</label><input id="tGroom2" placeholder="Nombre completo"></div></div></div>`;
+  }
+  if(ev.includes('catolica')||ev.includes('cristiana')){
+    html+=`<div class="section"><div class="section-label">Padrinos — ceremonia religiosa</div><div id="padList"></div><button class="btn btn-ghost btn-sm" onclick="addPadrino()" style="margin-top:8px">+ Agregar padrino / madrina</button></div>`;
+  }
+  if(!html) html=`<div class="section"><p style="font-size:13px;color:#888;font-family:Georgia,serif">No seleccionaron ninguna ceremonia en el paso 1.</p></div>`;
+  document.getElementById('ceremonyBlock').innerHTML=html;
+  if(ev.includes('catolica')||ev.includes('cristiana')){addPadrino();addPadrino();addPadrino();}
+}
+
+function addPadrino(){
+  padCnt++;
+  const c=document.getElementById('padList');if(!c)return;
+  const d=document.createElement('div');d.className='add-row2';d.style.marginBottom='1rem';
+  d.innerHTML=`<input placeholder="Nombre del padrino / madrina" id="padName${padCnt}"><input placeholder="Tipo (arras, lazo, biblia...)" id="padType${padCnt}">`;
+  c.appendChild(d);
+}
+
+function addSpeech(){
+  scCnt++;
+  const d=document.createElement('div');d.className='add-row';d.style.marginBottom='1rem';
+  d.innerHTML=`<input placeholder="Nombre" id="spName${scCnt}"><input placeholder="Relación con los novios" id="spRole${scCnt}"><input placeholder="Hora aprox." id="spTime${scCnt}">`;
+  document.getElementById('speeches').appendChild(d);
+}
+addSpeech();addSpeech();
+
+function navigate(dir){
+  document.getElementById('s'+cur).classList.remove('active');
+  cur=Math.min(Math.max(cur+dir,1),TOTAL);
+  if(cur===3)buildPhotoSections();
+  if(cur===4)buildParentDances();
+  if(cur===5)updatePrayerBlock();
+  if(cur===6)buildCeremonyBlock();
+  if(cur===8)buildSummary();
+  document.getElementById('s'+cur).classList.add('active');
+  document.getElementById('prog').style.width=(cur/TOTAL*100)+'%';
+  document.getElementById('stepCount').textContent=(cur<10?'0'+cur:cur)+' / 0'+TOTAL;
+  document.getElementById('prevBtn').style.visibility=cur>1?'visible':'hidden';
+  const nb=document.getElementById('nextBtn');
+  if(cur===TOTAL){nb.style.display='none';}else{nb.style.display='';nb.textContent=cur===TOTAL-1?'Ver resumen':'Siguiente';}
+  window.scrollTo(0,0);
+}
+
+function getPhotoSel(key){
+  const boxes=document.querySelectorAll('#pt_'+key+' input:checked');
+  return Array.from(boxes).map(b=>b.value).join(', ')||'—';
+}
+
+function buildTextSummary(){
+  const ev=getEvents();
+  const evLabels={civil:'Civil',catolica:'Religiosa católica',cristiana:'Religiosa cristiana',recepcion:'Recepción'};
+  let sp='';
+  for(let i=1;i<=scCnt;i++){const n=gv('spName'+i),r=gv('spRole'+i),t=gv('spTime'+i);if(n)sp+=`${n} (${r}) — ${t}; `;}
+  let pad='';
+  for(let i=1;i<=padCnt;i++){const n=gv('padName'+i),t=gv('padType'+i);if(n)pad+=`${n}: ${t}; `;}
+  const bride=gv('bride')||'—', groom=gv('groom')||'—';
+  let txt=`FORMATO DE BODA — ${bride.toUpperCase()} & ${groom.toUpperCase()}\n${'─'.repeat(50)}\n\n`;
+  txt+=`DATOS GENERALES\n`;
+  txt+=`Novia: ${bride}\nNovio: ${groom}\n`;
+  txt+=`Eventos: ${ev.map(v=>evLabels[v]).join(', ')||'—'}\n`;
+  ev.forEach(v=>{txt+=`Lugar ${evLabels[v]}: ${gv('loc_'+v)||'—'}\n`;txt+=`Horario ${evLabels[v]}: ${gv('start_'+v)||'—'}${v==='recepcion'&&gv('end_'+v)?' – '+gv('end_'+v):''}\n`;});
+  txt+=`\nFAMILIA DE LA NOVIA\n`;
+  txt+=`Padre: ${gv('bFather')||'—'}\nMadre: ${gv('bMother')||'—'}\nHermanos: ${gv('bSiblings')||'—'}\nHijos: ${gv('bKids')||'—'}\nOtros: ${gv('bOthers')||'—'}\n`;
+  txt+=`\nFAMILIA DEL NOVIO\n`;
+  txt+=`Padre: ${gv('gFather')||'—'}\nMadre: ${gv('gMother')||'—'}\nHermanos: ${gv('gSiblings')||'—'}\nHijos: ${gv('gKids')||'—'}\nOtros: ${gv('gOthers')||'—'}\n`;
+  const pk=['bride','groom','ceremony','couple','family','reception'];
+  const pl={bride:'Getting Ready Novia',groom:'Getting Ready Novio',ceremony:'Ceremonia',couple:'Sesión esposos',family:'Familias',reception:'Recepción'};
+  pk.forEach(k=>{txt+=`\nFOTOS — ${pl[k].toUpperCase()}\nSeleccionadas: ${getPhotoSel(k)}\nPetición especial: ${gv('ptExtra_'+k)||'—'}\n`;});
+  txt+=`\nMÚSICA\nEntrada: ${gv('entrArt')||'—'} — ${gv('entrSong')||'—'}\nPrimer baile: ${gv('firstArt')||'—'} — ${gv('firstSong')||'—'}\nCuándo: ${gv('firstWhen')||'—'}\n`;
+  const bFather=gv('bFather');
+  const bFatherAbsent=bFather.toLowerCase().includes('no aplica')||bFather.toLowerCase().includes('falleci')||bFather===''||bFather.toLowerCase().includes('no tiene');
+  if(!bFatherAbsent&&bFather) txt+=`Novia y papá: ${gv('bdadArt')||'—'} — ${gv('bdadSong')||'—'} (${gv('bdadName')||'—'})\n`;
+  else txt+=`Baile alterno novia: ${gv('brideAltWho')||'—'} — ${gv('brideAltArt')||'—'} — ${gv('brideAltSong')||'—'}\n`;
+  txt+=`Novio y mamá: ${gv('gmomArt')||'—'} — ${gv('gmomSong')||'—'} (${gv('gmomName')||'—'})\n`;
+  txt+=`Corte pastel: ${gv('cakeArt')||'—'} — ${gv('cakeSong')||'—'}\nApertura pista: ${gv('danceArt')||'—'} — ${gv('danceSong')||'—'}\nÚltima canción: ${gv('lastArt')||'—'} — ${gv('lastSong')||'—'}\nLes gusta: ${gv('musicLike')||'—'}\nNo quieren: ${gv('musicNope')||'—'}\nSolicitudes: ${gv('requests')||'—'}\nPlaylist: ${gv('playlist')||'—'}\n`;
+  txt+=`\nRECEPCIÓN\nAnuncio: ${gv('announce')||'—'}\nTipo de cena: ${gv('dinnerType')||'—'}\nMúsica cena: ${gv('dinnerMusic')||'—'}\n`;
+  if(ev.includes('cristiana')) txt+=`Oración: ${gv('prayer')||'—'} — ${gv('prayerWho')||'—'}\n`;
+  txt+=`Discursos: ${sp||'—'}\nNotas DJ: ${gv('djNotes')||'—'}\n`;
+  if(ev.includes('civil')) txt+=`\nTESTIGOS CIVIL\nNovia T1: ${gv('tBride1')||'—'} T2: ${gv('tBride2')||'—'}\nNovio T1: ${gv('tGroom1')||'—'} T2: ${gv('tGroom2')||'—'}\n`;
+  if(pad) txt+=`\nPADRINOS\n${pad}\n`;
+  txt+=`\nMOMENTOS ESPECIALES\nBouquet: ${gv('bouquet')||'—'}\nLiga: ${gv('garter')||'—'}\nSorpresas: ${gv('surprises')||'—'}\nNotas fotógrafo: ${gv('photoNotes')||'—'}\nNotas coordinadora: ${gv('plannerNotes')||'—'}\n`;
+  txt+=`\nCorreo de los novios: ${gv('clientEmail')||'—'}\n`;
+  return txt;
+}
+
+function buildSummary(){
+  const txt=buildTextSummary();
+  const lines=txt.split('\n');
+  let html='';
+  let inBlock=false;
+  lines.forEach(line=>{
+    if(!line.trim()){return;}
+    if(line.match(/^[A-ZÁÉÍÓÚÑ\s—&]+$/)&&line.length>3&&!line.includes(':')){
+      if(inBlock) html+='</div>';
+      html+=`<div class="sum-block"><div class="sum-block-title">${line}</div>`;
+      inBlock=true;
+    } else if(line.includes(':')){
+      const idx=line.indexOf(':');
+      const lbl=line.substring(0,idx).trim();
+      const val=line.substring(idx+1).trim();
+      if(val&&val!=='—') html+=`<div class="sum-row"><span class="sum-label">${lbl}</span><span class="sum-value">${val}</span></div>`;
+    }
+  });
+  if(inBlock) html+='</div>';
+  document.getElementById('summaryContent').innerHTML=html;
+}
+
+async function sendToPlanner(){
+  const st=document.getElementById('sendStatus');
+  const email=gv('clientEmail');
+  if(!email||!email.includes('@')){st.textContent='Por favor ingresa tu correo electrónico para la confirmación.';return;}
+  st.textContent='Enviando...';
+  const summary=buildTextSummary();
+  const bride=gv('bride')||'Novia', groom=gv('groom')||'Novio';
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:`Eres el asistente de The Planners Event Management. Acabas de recibir el formato de boda de ${bride} y ${groom}. El correo de los novios es: ${email}. El formato se enviará a hola@theplannersmx.com. Por favor confirma la recepción con un mensaje cálido y elegante en español, confirmando que el equipo de The Planners ha recibido su información y se pondrá en contacto pronto. Menciona los nombres de los novios. Formato de boda recibido:\n\n${summary}`}]
+      })
+    });
+    const data=await resp.json();
+    if(data.content&&data.content[0]){
+      st.style.color='var(--ink)';
+      st.innerHTML=data.content[0].text.replace(/\n/g,'<br>');
+    } else {
+      st.textContent='Formato enviado. El equipo de The Planners lo recibirá pronto.';
+    }
+  } catch(e){
+    st.textContent='Formato procesado. Guarda o captura esta pantalla y envíala a hola@theplannersmx.com';
+  }
+}
+</script>
