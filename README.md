@@ -1,4 +1,5 @@
-
+[index.html](https://github.com/user-attachments/files/27406884/index.html)
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -174,10 +175,6 @@ input[type=checkbox]{width:13px;height:13px;accent-color:var(--ink);cursor:point
         </div>
       </div>
       <div id="brideNamesBlock"></div>
-      <div class="field" style="margin-top:0.5rem">
-        <label>Otras personas importantes para la novia</label>
-        <textarea id="bOthers" placeholder="Abuelos, padrinos, amigos cercanos, etc."></textarea>
-      </div>
     </div>
 
     <div class="section">
@@ -193,10 +190,6 @@ input[type=checkbox]{width:13px;height:13px;accent-color:var(--ink);cursor:point
         </div>
       </div>
       <div id="groomNamesBlock"></div>
-      <div class="field" style="margin-top:0.5rem">
-        <label>Otras personas importantes para el novio</label>
-        <textarea id="gOthers" placeholder="Abuelos, padrinos, amigos cercanos, etc."></textarea>
-      </div>
     </div>
   </div>
 
@@ -505,8 +498,49 @@ function buildParentDances(){
         <div class="field"><label>Nombre de la mamá</label><input id="gmomName" type="text" placeholder="${gMother||'Nombre completo'}" value="${gMother}"></div>
       </div></div>`;
   }
-  if(!html)html=`<p style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:300;color:var(--ink3)">No seleccionaron papás o mamás en el círculo cercano. Si habrá vals, regresen al paso 2.</p>`;
+  if(!html){
+    html+=`<div style="margin-bottom:2rem">
+      <div class="section-label" style="margin-bottom:1rem">Vals novia — persona especial</div>
+      <div class="field"><label>¿Con quién bailará la novia?</label>
+        <select id="brideSpecialDance" onchange="toggleSpecialDance('bride')">
+          <option value="">Seleccionar...</option>
+          <option value="si">Sí, bailará con alguien especial</option>
+          <option value="no">No habrá vals para la novia</option>
+        </select>
+      </div>
+      <div id="brideSpecialFields" class="hidden">
+        <div class="g3">
+          <div class="field"><label>¿Con quién?</label><input id="brideSpecialWho" type="text" placeholder="Nombre y relación"></div>
+          <div class="field"><label>Artista</label><input id="brideSpecialArt" type="text" placeholder="Artista"></div>
+          <div class="field"><label>Canción</label><input id="brideSpecialSong" type="text" placeholder="Canción"></div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-bottom:2rem">
+      <div class="section-label" style="margin-bottom:1rem">Vals novio — persona especial</div>
+      <div class="field"><label>¿Con quién bailará el novio?</label>
+        <select id="groomSpecialDance" onchange="toggleSpecialDance('groom')">
+          <option value="">Seleccionar...</option>
+          <option value="si">Sí, bailará con alguien especial</option>
+          <option value="no">No habrá vals para el novio</option>
+        </select>
+      </div>
+      <div id="groomSpecialFields" class="hidden">
+        <div class="g3">
+          <div class="field"><label>¿Con quién?</label><input id="groomSpecialWho" type="text" placeholder="Nombre y relación"></div>
+          <div class="field"><label>Artista</label><input id="groomSpecialArt" type="text" placeholder="Artista"></div>
+          <div class="field"><label>Canción</label><input id="groomSpecialSong" type="text" placeholder="Canción"></div>
+        </div>
+      </div>
+    </div>`;
+  }
   document.getElementById('parentDanceFields').innerHTML=html;
+}
+
+function toggleSpecialDance(who){
+  const sel=document.getElementById(who+'SpecialDance');
+  const fields=document.getElementById(who+'SpecialFields');
+  if(sel&&fields)fields.classList.toggle('hidden',sel.value!=='si');
 }
 
 // S5
@@ -604,6 +638,8 @@ function buildTextSummary(){
   if(gv('bmomArt')||gv('bmomSong')||gv('bmomName'))txt+=`Vals novia y mamá: ${gv('bmomArt')||'—'} — ${gv('bmomSong')||'—'} (${gv('bmomName')||'—'})\n`;
   if(gv('gdadArt')||gv('gdadSong')||gv('gdadName'))txt+=`Vals novio y papá: ${gv('gdadArt')||'—'} — ${gv('gdadSong')||'—'} (${gv('gdadName')||'—'})\n`;
   if(gv('gmomArt')||gv('gmomSong')||gv('gmomName'))txt+=`Vals novio y mamá: ${gv('gmomArt')||'—'} — ${gv('gmomSong')||'—'} (${gv('gmomName')||'—'})\n`;
+  if(gv('brideSpecialWho'))txt+=`Vals novia con persona especial: ${gv('brideSpecialWho')} — ${gv('brideSpecialArt')||'—'} — ${gv('brideSpecialSong')||'—'}\n`;
+  if(gv('groomSpecialWho'))txt+=`Vals novio con persona especial: ${gv('groomSpecialWho')} — ${gv('groomSpecialArt')||'—'} — ${gv('groomSpecialSong')||'—'}\n`;
   txt+=`Corte pastel: ${gv('cakeArt')||'—'} — ${gv('cakeSong')||'—'}\nApertura pista: ${gv('danceArt')||'—'} — ${gv('danceSong')||'—'}\nÚltima canción: ${gv('lastArt')||'—'} — ${gv('lastSong')||'—'}\nLes gusta: ${gv('musicLike')||'—'}\nNo quieren: ${gv('musicNope')||'—'}\nSolicitudes: ${gv('requests')||'—'}\nPlaylist: ${gv('playlist')||'—'}\n`;
   txt+=`\nRECEPCIÓN\nAnuncio: ${gv('announce')||'—'}\nTipo de cena: ${gv('dinnerType')||'—'}\nMúsica cena: ${gv('dinnerMusic')||'—'}\n`;
   if(hasReligiosa())txt+=`Oración: ${gv('prayer')||'—'} — ${gv('prayerWho')||'—'}\n`;
