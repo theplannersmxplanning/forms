@@ -712,4 +712,3 @@ async function sendToPlanner(){
 </script>
 </body>
 </html>
-](https://theplannersmxplanning.github.io/forms/)
